@@ -1,0 +1,78 @@
+* { font-family: 'Do Hyeon', sans-serif; }
+
+.my_div {
+    width: 100%;
+    height: 100%;
+    border: solid;
+    position: relative;
+    z-index: 1;
+}
+
+.my_bg {
+    background-image: url("/static/img/rtan.png");
+    border: 0;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-itemns: center;
+    text-align: center; }
+
+.mybox {
+    width: 350px;
+    height: 300px;
+    margin: 30px auto;
+    background-color: white;
+    border: 3px solid;
+    padding: 20px;
+    border-radius: 20px; }
+
+.bttn {
+    width: 400px;
+    height: 100px;
+    background-color: #F95700;
+    border-color: #FFFFFF;
+    border: 3px solid;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+    }
+
+.test_btn {
+    text-align: center;
+    display: inline-block;
+}
+
+.bttn:hover { background-color: lightsalmon; }
+
+.bttn2 {
+    width: 400px;
+    height: 50px;
+    background-color: #F95700;
+    border-color: #FFFFFF;
+    border: 3px solid;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 5px;
+    }
+
+.bttn2:hover { background-color: lightsalmon; }
+
+.progress {
+    height: 15px;
+    width: 80%;
+    border-radius: 20px;
+    background-color: lightsalmon;
+    margin: auto;
+    }
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 20px;
+    background-color: tomato;
+}

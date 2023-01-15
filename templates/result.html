@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sparta Coding Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Song+Myung&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/style.css" >
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            show_result()
+        });
+
+        var score=localStorage.getItem('score');
+        var Result= 0
+        calResult()
+
+        function calResult(){
+            if (score< 4){
+                Result= 0
+            } else if (score< 7){
+                Result= 1
+            } else {
+                Result= 2
+            }
+        }
+
+        function show_result(){
+            $('#score_box').empty()
+                $.ajax({
+                    type: "GET",
+                    url: "/infoList",
+                    data: {},
+                    success: function (response) {
+                        let rows = response['info']
+                        let desc = rows[Result]['desc']
+
+                        let temp_html = `<div>
+                                            <h1 class="title"> { score : ${score}점 } </h1>
+                                            <h3>${desc}</h3>
+                                            </div>`
+                        $('#score_box').append(temp_html)
+                    }
+                });
+        }
+    </script>
+</head>
+<body>
+    <div class="my_div my_bg">
+    <div class="container">
+        <div class = "mybox" id = "score_box">
+            <div>
+                <h1 class="title"> { score : <%=result%> } </h1>
+                <h3>desc</h3>
+            </div>
+        </div>
+        <div>
+            <button class="bttn" type="button" onclick="location.href='/';"><span style="color:white"><h3>~ 한 번 더 테스트! ~</h3></span></button>
+        </div>
+        <div>
+            <button class="bttn" type="button" onclick="location.href='https://spartacodingclub.kr/';"><span style="color:white"><h3>~ 스파르타 코딩 홈페이지 가기 ~</h3></span></button>
+        </div>
+    </div>
+            </div>
+</body>
+</html>

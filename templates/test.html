@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sparta Coding Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Song+Myung&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="../static/style.css" >
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+    <script>
+        let count = 0;
+        let score = 0;
+
+        $(document).ready(function(){
+            show_question()
+            show_answer()
+
+            $('#answer-box').click(function () {
+                let value =event.target.value
+                $.ajax({
+                    type: "GET",
+                    url: "/test_list",
+                    data: {},
+                    success: function (response) {
+                        let rows = response['test']
+                        let size = rows.length
+                        let i = count
+                        let Answer = rows[i]['A']
+                        if(value == Answer){
+                            score+= 1
+                        }
+                        if(count== size-1){
+                            if (score != 0)
+                                score += 1
+                            localStorage.setItem('score',score)
+                            window.location.href = 'result'
+                        } else {
+                            var progress = document.querySelector('.progress-bar')
+                            progress.style.width = (100/size) * (count + 1) + '%'
+                            count+= 1
+                            show_question()
+                            show_answer()
+                        }
+                    }
+                })
+            });
+        });
+
+        function show_question(){
+            $('#question-box').empty()
+            $.ajax({
+                type: "GET",
+                url: "/test_list",
+                data: {},
+                success: function(response) {
+                    let rows = response['test']
+                    let i = count
+                    let question = rows[i]['q']
+                    let number = rows[i]['n']
+                    let temp_html = `<div class="mybox">
+                                           <h1 class="title">Q${number}</h1>
+                                           <p>${question}</p>
+                                     </div>`
+                    $('#question-box').append(temp_html)
+                }
+            });
+        }
+        function show_answer(){
+            $('#answer-box').empty()
+            $.ajax({
+                type: "GET",
+                url: "/test_list",
+                data: {},
+                success: function(response) {
+                    let rows = response['test']
+                    let i = count
+                    let a1 = rows[i]['a1']
+                    let a2 = rows[i]['a2']
+                    let a3 = rows[i]['a3']
+                    let a4 = rows[i]['a4']
+                    let temp_html = `<div class="answer-box" id="answer-box">
+                                            <button value = "a1" class="bttn" type="button">${a1}</button><br>
+                                            <button value = "a2" class="bttn" type="button">${a2}</button><br>
+                                            <button value = "a3" class="bttn" type="button">${a3}</button><br>
+                                            <button value = "a4" class="bttn" type="button">${a4}</button>
+                                    </div>`
+                    $('#answer-box').append(temp_html)
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="my_div my_bg">
+    <div class="container">
+        <div class="progress">
+            <div class="progress-bar"></div>
+        </div>
+        <div class="question-box" id="question-box">
+            <div class="mybox">
+                <h1 class="title">Qn</h1>
+                <p>question</p>
+            </div>
+        </div>
+
+        <div class="answer-box" id="answer-box">
+                <button value = "a1" class="bttn" type="button">a1</button><br>
+                <button value = "a2" class="bttn" type="button">a2</button><br>
+                <button value = "a3" class="bttn" type="button">a3</button><br>
+                <button value = "a4" class="bttn" type="button">a4</button>
+        </div>
+    </div>
+        </div>
+</body>
+</html>
+
+
